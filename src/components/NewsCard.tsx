@@ -10,12 +10,12 @@ const NewsCard = memo<NewsCardProps>(({ article, index, onReadMore, isFeatured: 
   return (
     <article
       className={`
-        border border-gray-800 rounded-4xl w-full h-full 
-        p-4 sm:p-6 md:p-8 
-        flex flex-col justify-between transition-all duration-300 
+        border border-gray-800 rounded-4xl w-[90%] h-full 
+        p-5 sm:p-6 md:p-8 lg:p-10
+        flex flex-col transition-all duration-300 
         hover:border-gray-600 hover:transform hover:scale-[1.02]
         focus-within:border-gray-500 focus-within:ring-2 focus-within:ring-gray-500/50
-        min-h-[280px] sm:min-h-[320px] md:min-h-[350px] lg:min-h-[380px]
+        min-h-[360px] sm:min-h-[400px] md:min-h-[440px] lg:min-h-[480px]
         relative overflow-hidden
         ${isFeatured ? 'bg-black' : 'bg-[#0a0a0a]'}
       `}
@@ -33,21 +33,22 @@ const NewsCard = memo<NewsCardProps>(({ article, index, onReadMore, isFeatured: 
             role="img"
             aria-label={`Background image for ${article.title}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" aria-hidden="true" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/40 to-black/60" aria-hidden="true" />
         </>
       )}
       
-      <div className="flex-1 relative z-10">
-        <header className="mb-3 sm:mb-4">
+      {/* Content Section */}
+      <div className="flex-1 relative z-10 flex flex-col">
+        <header className="mb-5 sm:mb-6 md:mb-7">
           <h3 
             id={`article-title-${article.id}`}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white leading-snug"
+            className="text-lg sm:text-xl md:text-xl lg:text-2xl text-white leading-tight mb-3 sm:mb-4"
           >
             {article.title}
           </h3>
           
           <div 
-            className="flex items-center gap-2 mt-2 text-gray-400 text-xs sm:text-sm"
+            className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm opacity-80"
             aria-label="Article metadata"
           >
             <time dateTime={new Date(article.date).toISOString().split('T')[0]}>
@@ -75,22 +76,26 @@ const NewsCard = memo<NewsCardProps>(({ article, index, onReadMore, isFeatured: 
           </div>
         </header>
         
-        <p 
-          id={`article-description-${article.id}`}
-          className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed mb-4 sm:mb-6"
-        >
-          {article.description}
-        </p>
+        {/* Description with proper spacing */}
+        <div className="flex-1 mb-6 sm:mb-7 md:mb-8">
+          <p 
+            id={`article-description-${article.id}`}
+            className="text-gray-300 text-sm sm:text-base leading-relaxed opacity-90"
+          >
+            {article.description}
+          </p>
+        </div>
       </div>
       
-      <footer className="mt-auto relative z-10">
+      {/* Button Section - Always at bottom */}
+      <footer className="relative z-10">
         <button 
           onClick={() => onReadMore(article)}
           className={`
-            px-4 py-2 sm:px-6 sm:py-2 md:px-6 md:py-3 
-            rounded-lg font-semibold transition-all duration-300 
+            px-6 py-3 sm:px-8 sm:py-4 md:px-8 md:py-4 
+            rounded-xl font-medium transition-all duration-300 
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900
-            text-xs sm:text-sm md:text-base
+            text-sm sm:text-base
             ${isFeatured 
               ? 'bg-white text-black hover:bg-gray-200 focus:ring-white' 
               : 'bg-transparent text-white border border-gray-700 hover:bg-gray-900 hover:border-gray-600 focus:ring-gray-400'
